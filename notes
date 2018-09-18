@@ -1,0 +1,7 @@
+1: Run mongo in a terminal
+2: Run mongod in another
+3: run server.js
+4: paste commands in another terminal to add or delete {
+    curl --data "name=Peter&role=student" http://localhost:8080/newUser // add
+    curl --data "name=Peter" http://localhost:8080/removeUser // remove
+}
