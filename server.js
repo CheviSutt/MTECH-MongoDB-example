@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
+
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -35,7 +36,7 @@ app.post('/newUser', (req, res) => { // /newUser is called the ENDPOINT // This 
    });
 }); // test this with `curl --data "name=Peter&role=student" http://localhost:8080/newUser`
 
-app.get('/user/:name', (req, res) => { // endpoint is "/user'\" & ":name" is the parameter
+app.get('/user/:name', (req, res) => { // endpoint is "/user'\" & ":name" is the parameter // app.get method edit in user manager app
     let userName = req.params.name; // this is to access value of parameter
     console.log(`GET /user/:name ${JSON.stringify(req.params)}`);
     user.findOne({name: userName }), (err, data) => {
@@ -47,7 +48,7 @@ app.get('/user/:name', (req, res) => { // endpoint is "/user'\" & ":name" is the
     }
 });
 
-app.post('/updateUserRole', (req, res) => {
+app.post('/updateUserRole', (req, res) => {  // edit in user manager
     console.log(`POST /updateUserRole: ${JSON.stringify(req.body)}`);
     let matchedName = req.body.name;
     let newrole = req.body.role;
@@ -58,12 +59,11 @@ app.post('/updateUserRole', (req, res) => {
         console.log(returnMsg);
         res.send(returnMsg);
     };
-
 });
 
 app.post('/removeUser', (req, res) => {
     console.log(`POST /removeUser: ${JSON.stringify(req.body)}`);
-    let matchedName = req.body.name;
+    let matchedName = req.body.name; // req.params.clientId
     user.findOneAndDelete({name: matchedName}, (err, data) => {
         if (err) return console.log(`data -- ${JSON.stringify(data)}`);
         let returnMsg = `user name : ${matchedName} removed data : ${data}`;
@@ -71,7 +71,6 @@ app.post('/removeUser', (req, res) => {
         res.send(returnMsg);
     });
 });
-
 
 app.listen(port, (err) => {
     if (err) console.log(err);
